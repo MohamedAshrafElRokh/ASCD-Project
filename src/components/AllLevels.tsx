@@ -11,6 +11,7 @@ import Level1 from "../levels/Level1";
 import Level2 from "../levels/Level2";
 import Level3 from "../levels/Level3";
 import Level4 from "../levels/Level4";
+import Pin from "./Pin";
 import {
   FirstFloorPins,
   SecondFloorPins,
@@ -104,31 +105,7 @@ function App() {
                       : "level__pins "
                   }`}
                 >
-                  {FirstFloorPins.map((pin) => (
-                    <a
-                      key={pin.dataSpace}
-                      className={pin.aClass}
-                      data-category={pin.dataCategory}
-                      data-space={pin.dataSpace}
-                      href="#"
-                      aria-label={pin.arialabel}
-                    >
-                      <span className="pin__icon">
-                        <svg
-                          className="icon icon--pin"
-                          href="path/to/svg-sprite.svg"
-                        >
-                          <use xlinkHref="#icon-pin"></use>
-                        </svg>
-                        <svg
-                          className={pin.svgClassName}
-                          href="path/to/svg-sprite.svg"
-                        >
-                          <use xlinkHref={pin.xlinkHref}></use>
-                        </svg>
-                      </span>
-                    </a>
-                  ))}
+                  <Pin arr={FirstFloorPins} />
                 </div>
               </div>
 
@@ -147,31 +124,7 @@ function App() {
                     level == 2 ? "level__pins--active" : ""
                   }`}
                 >
-                  {SecondFloorPins.map((pin) => (
-                    <a
-                      key={pin.dataSpace}
-                      className={pin.aClass}
-                      data-category={pin.dataCategory}
-                      data-space={pin.dataSpace}
-                      href="#"
-                      aria-label={pin.arialabel}
-                    >
-                      <span className="pin__icon">
-                        <svg
-                          className="icon icon--pin"
-                          href="path/to/svg-sprite.svg"
-                        >
-                          <use xlinkHref="#icon-pin"></use>
-                        </svg>
-                        <svg
-                          className={pin.svgClassName}
-                          href="path/to/svg-sprite.svg"
-                        >
-                          <use xlinkHref={pin.xlinkHref}></use>
-                        </svg>
-                      </span>
-                    </a>
-                  ))}
+                  <Pin arr={SecondFloorPins} />
                 </div>
               </div>
 
@@ -190,31 +143,7 @@ function App() {
                     level == 3 ? "level__pins--active" : ""
                   }`}
                 >
-                  {ThirdFloorPins.map((pin) => (
-                    <a
-                      key={pin.dataSpace}
-                      className={pin.aClass}
-                      data-category={pin.dataCategory}
-                      data-space={pin.dataSpace}
-                      href="#"
-                      aria-label={pin.arialabel}
-                    >
-                      <span className="pin__icon">
-                        <svg
-                          className="icon icon--pin"
-                          href="path/to/svg-sprite.svg"
-                        >
-                          <use xlinkHref="#icon-pin"></use>
-                        </svg>
-                        <svg
-                          className={pin.svgClassName}
-                          href="path/to/svg-sprite.svg"
-                        >
-                          <use xlinkHref={pin.xlinkHref}></use>
-                        </svg>
-                      </span>
-                    </a>
-                  ))}
+                  <Pin arr={ThirdFloorPins} />
                 </div>
                 {/* <!-- /level__pins --> */}
               </div>
@@ -234,31 +163,7 @@ function App() {
                     level == 4 ? "level__pins--active" : ""
                   }`}
                 >
-                  {FourthFloorPins.map((pin) => (
-                    <a
-                      key={pin.dataSpace}
-                      className={pin.aClass}
-                      data-category={pin.dataCategory}
-                      data-space={pin.dataSpace}
-                      href="#"
-                      aria-label={pin.arialabel}
-                    >
-                      <span className="pin__icon">
-                        <svg
-                          className="icon icon--pin"
-                          href="path/to/svg-sprite.svg"
-                        >
-                          <use xlinkHref="#icon-pin"></use>
-                        </svg>
-                        <svg
-                          className={pin.svgClassName}
-                          href="path/to/svg-sprite.svg"
-                        >
-                          <use xlinkHref={pin.xlinkHref}></use>
-                        </svg>
-                      </span>
-                    </a>
-                  ))}
+                  <Pin arr={FourthFloorPins} />
                 </div>
                 {/* <!-- /level__pins --> */}
               </div>
