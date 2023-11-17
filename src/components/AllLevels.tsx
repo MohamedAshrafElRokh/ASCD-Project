@@ -1,7 +1,7 @@
 // Hendawy Was Here
 import { useState, useRef } from "react";
 import "../App.css";
-import "../style.css";
+import "../assets/css/style.css";
 
 import ProfileF from "../assets/img/ProfileF.jpg";
 import ProfileM from "../assets/img/profileM.jpg";
@@ -278,7 +278,11 @@ function App() {
             className={`buildingnav ${level == 0 ? "buildingnav--hidden" : ""}`}
           >
             <button
-              className="boxbutton buildingnav__button--up"
+              className={
+                level == 4
+                  ? "boxbutton buildingnav__button--up boxbutton--disabled"
+                  : "boxbutton buildingnav__button--up"
+              }
               aria-label="Go up"
               onClick={() => levelControls("up")}
             >
@@ -296,7 +300,11 @@ function App() {
               </svg>
             </button>
             <button
-              className="boxbutton buildingnav__button--down"
+              className={
+                level == 1
+                  ? "boxbutton buildingnav__button--down boxbutton--disabled"
+                  : "boxbutton buildingnav__button--down"
+              }
               aria-label="Go down"
             >
               <svg
