@@ -1,9 +1,8 @@
 // Hendawy Was Here
-import { useState } from "react";
-import "../App.css";
+import { useRef, useState, useEffect, SetStateAction } from "react";
 import "../assets/css/style.css";
-import ProfileF from "../assets/img/ProfileF.jpg";
-import ProfileM from "../assets/img/profileM.jpg";
+// import ProfileF from "../assets/img/ProfileF.jpg";
+// import ProfileM from "../assets/img/profileM.jpg";
 import HiddenSVG from "./HiddenSVG";
 import surroundingsMiller from "../assets/img/surroundings-miller.svg";
 import Level1 from "../levels/Level1";
@@ -22,14 +21,24 @@ import Aside from "./Aside";
 function App() {
   const [level, setLevel] = useState(0);
   const [selectedLevel, setSelectedLevel] = useState(0);
+  const [map, setMap] = useState(false);
   const [isOpen, setOpen] = useState(false);
   const [content, setContent] = useState("");
+  const [rotationX, setRotationX] = useState(70);
+  const [rotationZ, setRotationZ] = useState(-45);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [startY, setStartY] = useState(0);
+
   const handleClick = (num: number) => {
     if (level != num) {
       setLevel(num);
       setSelectedLevel(`levels--selected-${num} levels--opened`);
       setContent("");
       setOpen(false);
+      setMap(true);
+      setRotationX(70);
+      setRotationZ(-45);
     }
   };
 
@@ -40,10 +49,16 @@ function App() {
       setContent("");
       setOpen(false);
     } else if (move == "down" && level > 1) {
-      if (level > 1) {
-        setLevel(level - 1);
-        setSelectedLevel(`levels--selected-${level - 1} levels--opened`);
-      }
+      setLevel(level - 1);
+      setSelectedLevel(`levels--selected-${level - 1} levels--opened`);
+    } else if (move == "backAll") {
+      setContent("");
+      setLevel(0);
+      setOpen(false);
+      setMap(false);
+      setSelectedLevel(0);
+      setRotationX(70);
+      setRotationZ(-45);
     }
   };
 
@@ -55,8 +70,70 @@ function App() {
     setContent("");
     setOpen(false);
   };
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    startDragging(e.clientX, e.clientY);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    startDragging(touch.clientX, touch.clientY);
+  };
+
+  const startDragging = (clientX: number, clientY: number) => {
+    setIsDragging(true);
+    setStartX(clientX);
+    setStartY(clientY);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isDragging) {
+      const deltaX = e.clientX - startX;
+      const deltaY = e.clientY - startY;
+
+      const speed = 0.2; // Adjust the speed factor as needed
+      setRotationX(rotationX + deltaY * speed);
+      setRotationZ(rotationZ + deltaX * speed);
+
+      setStartX(e.clientX);
+      setStartY(e.clientY);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (isDragging) {
+      const touch = e.touches[0];
+      const deltaX = touch.clientX - startX;
+      const deltaY = touch.clientY - startY;
+
+      const speed = 0.9; // Adjust the speed factor as needed
+      setRotationX(rotationX + deltaY * speed);
+      setRotationZ(rotationZ + deltaX * speed);
+
+      setStartX(touch.clientX);
+      setStartY(touch.clientY);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
   return (
-    <div>
+    <div
+      ref={containerRef}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* <!-- start icons --> */}
       <HiddenSVG />
       {/* <!-- end icons --> */}
@@ -94,27 +171,38 @@ function App() {
           </div>
           <div
             className={
-              content
-                ? " building miller building--content-open"
-                : "building miller"
+              isOpen
+                ? "building miller building--content-open"
+                : "building miller "
             }
           >
             <div className="surroundings">
               <img
-                className="surroundings__map"
+                draggable={false}
+                className={
+                  map
+                    ? "surroundings__map surroundings--hidden"
+                    : "surroundings__map"
+                }
                 src={surroundingsMiller}
                 alt="Surroundings"
               />
             </div>
-            <div className={`levels ${selectedLevel} svg-group`}>
+            <div
+              style={{
+                transform: ` rotateX(${rotationX}deg) rotateZ(${rotationZ}deg) translateZ(-15vmin)`,
+                transformOrigin: "center",
+              }}
+              className={`levels ${selectedLevel} svg-group  `}
+            >
               <div
+                onClick={() => handleClick(1)}
                 className={
                   level == 1
-                    ? "level level--1 level--current"
-                    : "level level--1"
+                    ? "level level--1 level--current "
+                    : "level level--1 "
                 }
                 aria-label="Level 1"
-                onClick={() => handleClick(1)}
               >
                 <Level1 />
                 <div
@@ -325,7 +413,7 @@ function App() {
             <button
               className="boxbutton boxbutton--dark buildingnav__button--all-levels"
               aria-label="Back to all levels"
-              onClick={() => handleClick(0)}
+              onClick={() => levelControls("backAll")}
             >
               <svg className="icon icon--stack">
                 <use xlinkHref="#icon-stack"></use>
