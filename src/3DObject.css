@@ -1,0 +1,59 @@
+.object-container {
+    perspective: 1000px;
+    width: 300px; /* Adjust to your desired size */
+    height: 300px; /* Adjust to your desired size */
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .object {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease;
+  }
+  
+  .object img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+
+  .three-d-box {
+    width: 200px;
+    height: 200px;
+    background-color: #3498db;
+    position: relative;
+    perspective: 800px;
+    transform-style: preserve-3d;
+    transition: transform 0.2s;
+    cursor: grab;
+  }
+
+
+
+  .t3d-container {
+    perspective: 1000px;
+    perspective-origin: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .svg-group {
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .controls {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 10px;
+  }
