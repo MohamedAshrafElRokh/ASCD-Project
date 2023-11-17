@@ -1,11 +1,5 @@
 // Hendawy Was Here
-import {
-  JSXElementConstructor,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
-  useState,
-} from "react";
+import { useState } from "react";
 import "../App.css";
 import "../assets/css/style.css";
 import ProfileF from "../assets/img/ProfileF.jpg";
@@ -22,10 +16,8 @@ import {
   ThirdFloorPins,
   FourthFloorPins,
 } from "../components/Lists/PinsLists";
-
 import { contentItems } from "../components/Lists/ContentLists";
 import Aside from "./Aside";
-import { log } from "three/examples/jsm/nodes/Nodes.js";
 
 function App() {
   const [level, setLevel] = useState(0);
@@ -36,6 +28,8 @@ function App() {
     if (level != num) {
       setLevel(num);
       setSelectedLevel(`levels--selected-${num} levels--opened`);
+      setContent("");
+      setOpen(false);
     }
   };
 
@@ -43,9 +37,9 @@ function App() {
     if (level < 4 && move == "up") {
       setLevel(level + 1);
       setSelectedLevel(`levels--selected-${level + 1} levels--opened`);
-    }
-
-    if (move == "down" && level > 1) {
+      setContent("");
+      setOpen(false);
+    } else if (move == "down" && level > 1) {
       if (level > 1) {
         setLevel(level - 1);
         setSelectedLevel(`levels--selected-${level - 1} levels--opened`);
@@ -54,10 +48,12 @@ function App() {
   };
 
   const handelOpenContent = (dataSpace: string) => {
-    setOpen(!isOpen);
-    console.log(dataSpace);
+    setOpen(true);
     setContent(dataSpace);
-    console.log("hi");
+  };
+  const handelCloseContent = () => {
+    setContent("");
+    setOpen(false);
   };
   return (
     <div>
@@ -96,7 +92,13 @@ function App() {
               </li>
             </ul>
           </div>
-          <div className="building miller">
+          <div
+            className={
+              content
+                ? " building miller building--content-open"
+                : "building miller"
+            }
+          >
             <div className="surroundings">
               <img
                 className="surroundings__map"
@@ -172,6 +174,9 @@ function App() {
                     <a
                       key={pin.dataSpace}
                       className={pin.aClass}
+                      onClick={() => {
+                        handelOpenContent(pin.dataSpace);
+                      }}
                       data-category={pin.dataCategory}
                       data-space={pin.dataSpace}
                       href="#"
@@ -215,6 +220,9 @@ function App() {
                     <a
                       key={pin.dataSpace}
                       className={pin.aClass}
+                      onClick={() => {
+                        handelOpenContent(pin.dataSpace);
+                      }}
                       data-category={pin.dataCategory}
                       data-space={pin.dataSpace}
                       href="#"
@@ -259,6 +267,9 @@ function App() {
                     <a
                       key={pin.dataSpace}
                       className={pin.aClass}
+                      onClick={() => {
+                        handelOpenContent(pin.dataSpace);
+                      }}
                       data-category={pin.dataCategory}
                       data-space={pin.dataSpace}
                       href="#"
@@ -372,7 +383,7 @@ function App() {
               </div>
             ))}
             <button
-              onClick={handelOpenContent}
+              onClick={handelCloseContent}
               className={
                 isOpen
                   ? "boxbutton boxbutton--dark content__button"
@@ -391,8 +402,6 @@ function App() {
 
         <Aside />
       </div>
-
-      <script src="assets/js/scripts.js"></script>
     </div>
   );
 }
