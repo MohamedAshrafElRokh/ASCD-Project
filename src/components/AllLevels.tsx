@@ -17,21 +17,19 @@ import { contentItems } from "../components/Lists/ContentLists";
 import { listItems } from "../components/Lists/AsideList";
 
 function App() {
-  const [level, setLevel] = useState(0);
-  const [selectedLevel, setSelectedLevel] = useState(0);
-  const [map, setMap] = useState(false);
-  const [isOpen, setOpen] = useState(false);
-  const [content, setContent] = useState("");
-
-  const [searchVisible, setSearchVisible] = useState(false);
+  const [level, setLevel] = useState<number>(0);
+  const [selectedLevel, setSelectedLevel] = useState<string | number>(0);
+  const [map, setMap] = useState<boolean>(false);
+  const [isOpen, setOpen] = useState<boolean>(false);
+  const [content, setContent] = useState<string>("");
+  const [searchVisible, setSearchVisible] = useState<boolean>(false);
   const initialList = listItems;
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [listTerms, setListItems] = useState(initialList);
 
-  const handleClick = (num: number) => {
-    if (level != num) {
+  const handleClick = (num: number): void => {
+    if (level !== num) {
       setLevel(num);
-      console.log("hi");
       setSelectedLevel(`levels--selected-${num} levels--opened`);
       setOpen(false);
       setMap(true);
@@ -40,15 +38,15 @@ function App() {
     }
   };
 
-  const levelControls = (move: string) => {
-    if (level < 7 && move == "up") {
+  const levelControls = (move: string): void => {
+    if (level < 7 && move === "up") {
       setLevel(level + 1);
       setSelectedLevel(`levels--selected-${level + 1} levels--opened`);
       setOpen(false);
-    } else if (move == "down" && level > 1) {
+    } else if (move === "down" && level > 1) {
       setLevel(level - 1);
       setSelectedLevel(`levels--selected-${level - 1} levels--opened`);
-    } else if (move == "backAll") {
+    } else if (move === "backAll") {
       setContent("");
       setLevel(0);
       setOpen(false);
@@ -59,18 +57,18 @@ function App() {
     }
   };
 
-  const showSearch = () => {
+  const showSearch = (): void => {
     setSearchVisible(true);
   };
-  const hideSearch = () => {
+  const hideSearch = (): void => {
     setSearchVisible(false);
   };
 
-  const handelOpenContent = (dataSpace: string) => {
+  const handelOpenContent = (dataSpace: string): void => {
     setOpen(true);
     setContent(dataSpace);
   };
-  const handelCloseContent = () => {
+  const handelCloseContent = (): void => {
     setContent("");
     setOpen(false);
     setMap(true);
@@ -79,8 +77,8 @@ function App() {
   const handelSearchNav = (
     navLevel: SetStateAction<number>,
     dataSpace: SetStateAction<string>
-  ) => {
-    if (level != navLevel) {
+  ): void => {
+    if (level !== navLevel) {
       setLevel(navLevel);
       setSelectedLevel(`levels--selected-${navLevel} levels--opened`);
       setOpen(true);
@@ -90,30 +88,30 @@ function App() {
       setRotationZ(-45);
     }
   };
-  const [rotationX, setRotationX] = useState(70);
-  const [rotationZ, setRotationZ] = useState(-45);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [startY, setStartY] = useState(0);
+  const [rotationX, setRotationX] = useState<number>(70);
+  const [rotationZ, setRotationZ] = useState<number>(-45);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [startX, setStartX] = useState<number>(0);
+  const [startY, setStartY] = useState<number>(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>): void => {
     startDragging(e.clientX, e.clientY);
   };
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>): void => {
     const touch = e.touches[0];
     startDragging(touch.clientX, touch.clientY);
   };
 
-  const startDragging = (clientX: number, clientY: number) => {
+  const startDragging = (clientX: number, clientY: number): void => {
     setIsDragging(true);
     setStartX(clientX);
     setStartY(clientY);
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (isDragging) {
       const deltaX = e.clientX - startX;
       const deltaY = e.clientY - startY;
@@ -128,7 +126,7 @@ function App() {
     }
   };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>): void => {
     if (isDragging) {
       const touch = e.touches[0];
       const deltaX = touch.clientX - startX;
@@ -144,13 +142,14 @@ function App() {
     }
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (): void => {
     setIsDragging(false);
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (): void => {
     setIsDragging(false);
   };
+
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const searchText = e.target.value.toLowerCase();
     setSearchTerm(searchText);
