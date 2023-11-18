@@ -1,7 +1,7 @@
 // Hendawy Was Here
 import { SetStateAction, ChangeEvent, useRef, useState } from "react";
 import "../assets/css/style.css";
-import ProfileF from "../assets/img/ProfileF.jpg";
+import ProfileF from "../assets/img/profileF.jpg";
 import HiddenSVG from "./HiddenSVG";
 import surroundingsMiller from "../assets/img/surroundings-miller.svg";
 import Level1 from "../levels/Level1";
