@@ -380,7 +380,6 @@ function App() {
                     </a>
                   ))}
                 </div>
-                {/* <!-- /level__pins --> */}
               </div>
 
               <div
@@ -431,7 +430,6 @@ function App() {
                     </a>
                   ))}
                 </div>
-                {/* <!-- /level__pins --> */}
               </div>
               <div
                 onClick={() => handleClick(5)}
@@ -531,7 +529,6 @@ function App() {
                     </a>
                   ))}
                 </div>
-                {/* <!-- /level__pins --> */}
               </div>
               <div
                 className={
@@ -583,12 +580,9 @@ function App() {
                     </a>
                   ))}
                 </div>
-                {/* <!-- /level__pins --> */}
               </div>
             </div>
-            {/* <!-- /levels --> */}
           </div>
-          {/* <!-- /building --> */}
           <button
             className="boxbutton boxbutton--dark open-search  searchMargen"
             aria-label="Show search"
@@ -686,9 +680,7 @@ function App() {
               </svg>
             </button>
           </div>
-          {/* <!-- content --> */}
         </div>
-        {/* <!-- /main --> */}
 
         {/* <Aside /> */}
         <aside
@@ -746,7 +738,6 @@ function App() {
                 </a>
               </li>
             ))}
-            {/* <!-- <li className="list__item" data-level="4" data-category="1" data-room="RLA" data-space="2.29"><a href="#" className="list__link">Alcove</a></li> --> */}
           </ul>
         </aside>
       </div>
