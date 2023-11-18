@@ -1,14 +1,11 @@
 // Hendawy Was Here
 import { useRef, useState } from "react";
 import "../assets/css/style.css";
-// import ProfileF from "../assets/img/ProfileF.jpg";
-// import ProfileM from "../assets/img/profileM.jpg";
+import ProfileF from "../assets/img/ProfileF.jpg";
 import HiddenSVG from "./HiddenSVG";
 import surroundingsMiller from "../assets/img/surroundings-miller.svg";
 import Level1 from "../levels/Level1";
-import Level2 from "../levels/Level2";
-import Level3 from "../levels/Level3";
-import Level4 from "../levels/Level4";
+
 import {
   FirstFloorPins,
   SecondFloorPins,
@@ -28,15 +25,15 @@ function App() {
   const [content, setContent] = useState("");
 
   const [searchVisible, setSearchVisible] = useState(false);
-  const [searchText, setSearchText] = useState("");
+  const initialList = listItems;
+  const [searchTerm, setSearchTerm] = useState("");
+  const [listTerms, setListItems] = useState(initialList);
 
   const handleClick = (num: number) => {
     if (level != num) {
       setLevel(num);
       console.log("hi");
-
       setSelectedLevel(`levels--selected-${num} levels--opened`);
-      setContent("");
       setOpen(false);
       setMap(true);
       setRotationX(70);
@@ -48,7 +45,6 @@ function App() {
     if (level < 7 && move == "up") {
       setLevel(level + 1);
       setSelectedLevel(`levels--selected-${level + 1} levels--opened`);
-      setContent("");
       setOpen(false);
     } else if (move == "down" && level > 1) {
       setLevel(level - 1);
@@ -78,8 +74,20 @@ function App() {
   const handelCloseContent = () => {
     setContent("");
     setOpen(false);
+    setMap(true);
   };
 
+  const handelSearchNav = (navLevel, dataSpace) => {
+    if (level != navLevel) {
+      setLevel(navLevel);
+      setSelectedLevel(`levels--selected-${navLevel} levels--opened`);
+      setOpen(true);
+      setContent(dataSpace);
+      setMap(true);
+      setRotationX(70);
+      setRotationZ(-45);
+    }
+  };
   const [rotationX, setRotationX] = useState(70);
   const [rotationZ, setRotationZ] = useState(-45);
   const [isDragging, setIsDragging] = useState(false);
@@ -140,6 +148,16 @@ function App() {
 
   const handleTouchEnd = () => {
     setIsDragging(false);
+  };
+  const handleSearch = (e) => {
+    const searchText = e.target.value.toLowerCase();
+    setSearchTerm(searchText);
+
+    const filteredList = initialList.filter((item) => {
+      return item.listLink.toLowerCase().includes(searchTerm);
+    });
+    console.log(filteredList);
+    setListItems(filteredList);
   };
   return (
     <div
@@ -646,7 +664,7 @@ function App() {
                     </span>
                   </p>
                   <p className="content__desc">
-                    <img src="img/profileF.jpg" alt="" /> {item.description}
+                    <img src={ProfileF} alt="" /> {item.description}
                     <br />
                     <br />
                     Publications: <a href="#">Click here</a>
@@ -683,8 +701,7 @@ function App() {
         >
           <div className="search">
             <input
-              onChange={(e) => setSearchText(e.target.value)}
-              value={searchText}
+              onChange={(e) => handleSearch(e)}
               className="search__input"
               placeholder="Search..."
             />
@@ -709,28 +726,26 @@ function App() {
           </span>
 
           <ul className="list grouped-by-category">
-            {listItems.map(
-              (index) =>
-                selectedLevel === parseInt(index.dataLevel) &&
-                index.listLink.toLowerCase().includes(searchText.toLowerCase())(
-                  <li
-                    key={index.dataLevel}
-                    className="list__item"
-                    data-level={index.dataLevel}
-                    data-category={index.dataCategory}
-                    data-room={index.dataRoom}
-                    data-space={index.dataSpace}
-                  >
-                    <a
-                      href="#"
-                      className="list__link"
-                      onClick={() => handleClick(parseInt(index.dataLevel))}
-                    >
-                      {index.listLink}
-                    </a>
-                  </li>
-                )
-            )}
+            {listTerms.map((item, index) => (
+              <li
+                key={index}
+                className="list__item"
+                data-level={item.dataLevel}
+                data-category={item.dataCategory}
+                data-room={item.dataRoom}
+                data-space={item?.dataSpace}
+              >
+                <a
+                  href="#"
+                  className="list__link"
+                  onClick={() =>
+                    handelSearchNav(parseInt(item.dataLevel), item?.dataSpace)
+                  }
+                >
+                  {item.listLink}
+                </a>
+              </li>
+            ))}
             {/* <!-- <li className="list__item" data-level="4" data-category="1" data-room="RLA" data-space="2.29"><a href="#" className="list__link">Alcove</a></li> --> */}
           </ul>
         </aside>
