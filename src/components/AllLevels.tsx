@@ -1,5 +1,5 @@
 // Hendawy Was Here
-import { useRef, useState } from "react";
+import { SetStateAction, ChangeEvent, useRef, useState } from "react";
 import "../assets/css/style.css";
 import ProfileF from "../assets/img/ProfileF.jpg";
 import HiddenSVG from "./HiddenSVG";
@@ -12,7 +12,6 @@ import {
   ThirdFloorPins,
   FourthFloorPins,
   FifthFloorPins,
-  SixFloorPins,
 } from "../components/Lists/PinsLists";
 import { contentItems } from "../components/Lists/ContentLists";
 import { listItems } from "../components/Lists/AsideList";
@@ -77,7 +76,10 @@ function App() {
     setMap(true);
   };
 
-  const handelSearchNav = (navLevel, dataSpace) => {
+  const handelSearchNav = (
+    navLevel: SetStateAction<number>,
+    dataSpace: SetStateAction<string>
+  ) => {
     if (level != navLevel) {
       setLevel(navLevel);
       setSelectedLevel(`levels--selected-${navLevel} levels--opened`);
@@ -149,7 +151,7 @@ function App() {
   const handleTouchEnd = () => {
     setIsDragging(false);
   };
-  const handleSearch = (e) => {
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const searchText = e.target.value.toLowerCase();
     setSearchTerm(searchText);
 
