@@ -643,13 +643,12 @@ button:focus {
   pointer-events: none;
   opacity: 0;
 }
-
 .boxbutton {
   font-size: 2em;
   display: block;
   width: 2em;
   height: 2em;
-  margin: 0 0 10px;
+  margin: 20px;
   padding: 0;
   color: #fff;
   border: 0;
@@ -663,6 +662,12 @@ button:focus {
 
 .boxbutton--darker {
   background: #2c2c2f;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 1;
+  transform: translateY(-20px);
+  /* transform: translateX(20px); */
 }
 
 .boxbutton--alt {
@@ -1596,62 +1601,61 @@ button:focus {
   display: none;
 }
 
-@media screen and (max-width: 1023px), screen and (max-height: 767px) {
-  .map-main {
-    width: 100vw;
-  }
+.map-main {
+  width: 100vw;
+}
 
-  .spaces-list,
-  .search {
-    width: 300px;
-    right: -100%;
-    left: auto;
-    -webkit-transition: 0.4s ease-in-out;
-    transition: 0.4s ease-in-out;
-  }
+.spaces-list,
+.search {
+  width: 300px;
+  right: -100%;
+  left: auto;
+  -webkit-transition: 0.4s ease-in-out;
+  transition: 0.4s ease-in-out;
+}
 
-  .spaces-list--open,
-  .spaces-list--open .search {
-    right: 0;
-  }
+.spaces-list--open,
+.spaces-list--open .search {
+  right: 0;
+}
 
-  .open-search,
-  .close-search {
-    position: absolute;
-    display: block;
-    top: 0;
-    right: 0;
-    z-index: 1000;
-  }
+.open-search,
+.close-search {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+}
 
-  .buildingnav {
-    top: 4em;
-  }
+.buildingnav {
+  margin-top: 50px;
+  top: 4em;
+}
 
-  .map-container {
-    overflow: hidden;
-  }
+.map-container {
+  overflow: hidden;
+}
 
-  .map-container--overflow {
-    overflow-y: auto;
-  }
+.map-container--overflow {
+  overflow-y: auto;
+}
 
-  .content__item {
-    overflow: auto;
-  }
+.content__item {
+  overflow: auto;
+}
 
-  .library-header {
-    padding-right: 4em;
-    text-align: left;
-  }
+.library-header {
+  padding-right: 4em;
+  text-align: left;
+}
 
-  .library-header p {
-    display: none;
-  }
+.library-header p {
+  display: none;
+}
 
-  .legend {
-    bottom: 3em;
-  }
+.legend {
+  bottom: 3em;
 }
 
 @media screen and (max-width: 679px) {
