@@ -14,6 +14,8 @@ import {
   SecondFloorPins,
   ThirdFloorPins,
   FourthFloorPins,
+  FifthFloorPins,
+  SixFloorPins,
 } from "../components/Lists/PinsLists";
 import { contentItems } from "../components/Lists/ContentLists";
 import Aside from "./Aside";
@@ -43,7 +45,7 @@ function App() {
   };
 
   const levelControls = (move: string) => {
-    if (level < 4 && move == "up") {
+    if (level < 7 && move == "up") {
       setLevel(level + 1);
       setSelectedLevel(`levels--selected-${level + 1} levels--opened`);
       setContent("");
@@ -67,7 +69,6 @@ function App() {
   };
   const hideSearch = () => {
     setSearchVisible(false);
-    console.log(searchVisible);
   };
 
   const handelOpenContent = (dataSpace: string) => {
@@ -223,7 +224,11 @@ function App() {
                   {FirstFloorPins.map((pin) => (
                     <a
                       key={pin.dataSpace}
-                      className={pin.aClass}
+                      className={
+                        pin.dataSpace === content
+                          ? pin.aClass + " pin--active"
+                          : pin.aClass
+                      }
                       onClick={() => {
                         handelOpenContent(pin.dataSpace);
                       }}
@@ -269,7 +274,11 @@ function App() {
                   {SecondFloorPins.map((pin) => (
                     <a
                       key={pin.dataSpace}
-                      className={pin.aClass}
+                      className={
+                        pin.dataSpace === content
+                          ? pin.aClass + " pin--active"
+                          : pin.aClass
+                      }
                       onClick={() => {
                         handelOpenContent(pin.dataSpace);
                       }}
@@ -315,7 +324,11 @@ function App() {
                   {ThirdFloorPins.map((pin) => (
                     <a
                       key={pin.dataSpace}
-                      className={pin.aClass}
+                      className={
+                        pin.dataSpace === content
+                          ? pin.aClass + " pin--active"
+                          : pin.aClass
+                      }
                       onClick={() => {
                         handelOpenContent(pin.dataSpace);
                       }}
@@ -353,7 +366,7 @@ function App() {
                 aria-label="Level 4"
                 onClick={() => handleClick(4)}
               >
-                <Level4 />
+                <Level3 />
                 <div
                   className={`level__pins ${
                     level == 4 ? "level__pins--active" : ""
@@ -362,7 +375,163 @@ function App() {
                   {FourthFloorPins.map((pin) => (
                     <a
                       key={pin.dataSpace}
-                      className={pin.aClass}
+                      className={
+                        pin.dataSpace === content
+                          ? pin.aClass + " pin--active"
+                          : pin.aClass
+                      }
+                      onClick={() => {
+                        handelOpenContent(pin.dataSpace);
+                      }}
+                      data-category={pin.dataCategory}
+                      data-space={pin.dataSpace}
+                      href="#"
+                      aria-label={pin.arialabel}
+                    >
+                      <span className="pin__icon">
+                        <svg
+                          className="icon icon--pin"
+                          href="path/to/svg-sprite.svg"
+                        >
+                          <use xlinkHref="#icon-pin"></use>
+                        </svg>
+                        <svg
+                          className={pin.svgClassName}
+                          href="path/to/svg-sprite.svg"
+                        >
+                          <use xlinkHref={pin.xlinkHref}></use>
+                        </svg>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+                {/* <!-- /level__pins --> */}
+              </div>
+              <div
+                onClick={() => handleClick(5)}
+                className={
+                  level == 5
+                    ? "level level--5 level--current "
+                    : "level level--5 "
+                }
+                aria-label="Level 5"
+              >
+                <Level1 />
+                <div
+                  className={`level__pins ${
+                    level == 5
+                      ? "level__pins level__pins--active"
+                      : "level__pins "
+                  }`}
+                >
+                  {ThirdFloorPins.map((pin) => (
+                    <a
+                      className={
+                        pin.dataSpace === content
+                          ? pin.aClass + " pin--active"
+                          : pin.aClass
+                      }
+                      onClick={() => {
+                        handelOpenContent(pin.dataSpace);
+                      }}
+                      data-category={pin.dataCategory}
+                      data-space={pin.dataSpace}
+                      href="#"
+                      aria-label={pin.arialabel}
+                    >
+                      <span className="pin__icon">
+                        <svg
+                          className="icon icon--pin"
+                          href="path/to/svg-sprite.svg"
+                        >
+                          <use xlinkHref="#icon-pin"></use>
+                        </svg>
+                        <svg
+                          className={pin.svgClassName}
+                          href="path/to/svg-sprite.svg"
+                        >
+                          <use xlinkHref={pin.xlinkHref}></use>
+                        </svg>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <div
+                className={
+                  level == 6
+                    ? "level level--6 level--current"
+                    : "level level--6"
+                }
+                aria-label="Level 6"
+                onClick={() => handleClick(6)}
+              >
+                <Level4 />
+                <div
+                  className={`level__pins ${
+                    level == 6 ? "level__pins--active" : ""
+                  }`}
+                >
+                  {FirstFloorPins.map((pin) => (
+                    <a
+                      key={pin.dataSpace}
+                      className={
+                        pin.dataSpace === content
+                          ? pin.aClass + " pin--active"
+                          : pin.aClass
+                      }
+                      onClick={() => {
+                        handelOpenContent(pin.dataSpace);
+                      }}
+                      data-category={pin.dataCategory}
+                      data-space={pin.dataSpace}
+                      href="#"
+                      aria-label={pin.arialabel}
+                    >
+                      <span className="pin__icon">
+                        <svg
+                          className="icon icon--pin"
+                          href="path/to/svg-sprite.svg"
+                        >
+                          <use xlinkHref="#icon-pin"></use>
+                        </svg>
+                        <svg
+                          className={pin.svgClassName}
+                          href="path/to/svg-sprite.svg"
+                        >
+                          <use xlinkHref={pin.xlinkHref}></use>
+                        </svg>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+                {/* <!-- /level__pins --> */}
+              </div>
+              <div
+                className={
+                  level == 7
+                    ? "level level--7 level--current"
+                    : "level level--7"
+                }
+                aria-label="Level 7"
+                onClick={() => handleClick(7)}
+              >
+                <Level3 />
+                <div
+                  className={`level__pins ${
+                    level == 7
+                      ? "level__pins level__pins--active"
+                      : "level__pins "
+                  }`}
+                >
+                  {FirstFloorPins.map((pin) => (
+                    <a
+                      key={pin.dataSpace}
+                      className={
+                        pin.dataSpace === content
+                          ? pin.aClass + " pin--active"
+                          : pin.aClass
+                      }
                       onClick={() => {
                         handelOpenContent(pin.dataSpace);
                       }}
@@ -408,7 +577,7 @@ function App() {
           >
             <button
               className={
-                level == 4
+                level == 7
                   ? "boxbutton buildingnav__button--up boxbutton--disabled"
                   : "boxbutton buildingnav__button--up"
               }
@@ -434,12 +603,10 @@ function App() {
                   ? "boxbutton buildingnav__button--down boxbutton--disabled"
                   : "boxbutton buildingnav__button--down"
               }
+              onClick={() => levelControls("down")}
               aria-label="Go down"
             >
-              <svg
-                className="icon icon--angle-down"
-                onClick={() => levelControls("down")}
-              >
+              <svg className="icon icon--angle-down">
                 <use xlinkHref="#icon-angle-down"></use>
               </svg>
             </button>
