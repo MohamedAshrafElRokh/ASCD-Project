@@ -1126,4 +1126,17 @@ export const contentItems = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto reiciendis modi, odio reprehenderit accusamus pariatur officiis distinctio neque velit doloribus error, impedit quisquam tempore possimus, eos temporibus laudantium culpa?",
   },
+  {
+    dataSpace: "5.27",
+    dataCategory: "3",
+    title: "Carolyn Megan",
+    role: "Library Assistant",
+    meta: {
+      office: "007D",
+      hours: "8:00AM — 4:30PM",
+      phone: "(207) 859-5555",
+    },
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto reiciendis modi, odio reprehenderit accusamus pariatur officiis distinctio neque velit doloribus error, impedit quisquam tempore possimus, eos temporibus laudantium culpa?",
+  },
 ];
