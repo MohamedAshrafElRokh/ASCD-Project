@@ -27,14 +27,18 @@ function App() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [listTerms, setListItems] = useState(initialList);
 
+  const [rotationX, setRotationX] = useState<number>(80);
+  const [rotationZ, setRotationZ] = useState<number>(-45);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [startX, setStartX] = useState<number>(0);
+  const [startY, setStartY] = useState<number>(0);
+
   const handleClick = (num: number): void => {
     if (level !== num) {
       setLevel(num);
       setSelectedLevel(`levels--selected-${num} levels--opened`);
       setOpen(false);
       setMap(true);
-      setRotationX(70);
-      setRotationZ(-45);
     }
   };
 
@@ -42,7 +46,6 @@ function App() {
     if (level < 7 && move === "up") {
       setLevel(level + 1);
       setSelectedLevel(`levels--selected-${level + 1} levels--opened`);
-      setOpen(false);
     } else if (move === "down" && level > 1) {
       setLevel(level - 1);
       setSelectedLevel(`levels--selected-${level - 1} levels--opened`);
@@ -52,7 +55,7 @@ function App() {
       setOpen(false);
       setMap(false);
       setSelectedLevel(0);
-      setRotationX(70);
+      setRotationX(80);
       setRotationZ(-45);
     }
   };
@@ -88,11 +91,6 @@ function App() {
       setRotationZ(-45);
     }
   };
-  const [rotationX, setRotationX] = useState<number>(70);
-  const [rotationZ, setRotationZ] = useState<number>(-45);
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [startX, setStartX] = useState<number>(0);
-  const [startY, setStartY] = useState<number>(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
